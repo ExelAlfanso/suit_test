@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { formatDate } from "../utils/DateFormatter";
 import { transformImageUrl } from "../utils/TransformImageUrl";
 import Image from "next/image";
@@ -8,7 +9,10 @@ interface IdeaCardProps {
 
 export default function IdeaCard({ idea }: IdeaCardProps) {
   return (
-    <div className="relative overflow-hidden bg-white rounded-lg shadow-md">
+    <Link
+      href={`/ideas/${idea.slug}`}
+      className="relative overflow-hidden bg-white rounded-lg shadow-md"
+    >
       <div className="w-full relative aspect-4/3">
         <Image
           src={transformImageUrl(
@@ -28,6 +32,6 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
         </h2>
         <h2 className="text-lg font-semibold text-gray-800">{idea.title}</h2>
       </div>
-    </div>
+    </Link>
   );
 }

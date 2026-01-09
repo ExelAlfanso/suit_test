@@ -34,9 +34,21 @@ export default function ListPost({
   return (
     <section className="min-h-screen px-30 ">
       <div className="flex flex-col md:flex-row items-start md:items-center  justify-between py-10 ">
-        <h2 className="text-lg font-medium text-gray-700">
-          Showing {meta.from}-{meta.to} of {meta.total}
-        </h2>
+        {isLoading ? (
+          <h2 className="text-lg font-medium text-gray-700 flex items-center gap-2">
+            Showing
+            <span className="inline-block w-8 h-3 bg-gray-200 animate-pulse rounded" />
+            -
+            <span className="inline-block w-10 h-3 bg-gray-200 animate-pulse rounded" />
+            of
+            <span className="inline-block w-12 h-3 bg-gray-200 animate-pulse rounded" />
+          </h2>
+        ) : (
+          <h2 className="text-lg font-medium text-gray-700">
+            Showing {meta.from}-{meta.to} of {meta.total}
+          </h2>
+        )}
+
         <div className="flex flex-col md:flex-row items-start  gap-4">
           <SizeDropdown
             value={size}

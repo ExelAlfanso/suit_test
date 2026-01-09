@@ -1,7 +1,6 @@
 "use client";
 
 import Banner from "@/src/components/Banner";
-import Header from "@/src/components/Header";
 import ListPost from "@/src/components/ListPost";
 import { useUpdateQuery } from "@/src/hooks/useUpdateQuery";
 import { fetchIdeas } from "@/src/service/IdeaService";
@@ -13,10 +12,20 @@ export default function IdeasPage() {
   const page = searchParams.get("page") || "1";
   const size = parseInt(searchParams.get("size") || "10");
   const sort = searchParams.get("sort") || "published_at";
+
+  const sanitizedPage = Math.min(Math.max(Number(page), 1), 1);
+  const sanitizedSize = Math.min(Math.max(Number(size), 10), 50);
+  const sanitizedSort =
+    sort === "published_at" ? "published_at" : "-published_at";
+  console.log("sanitized", { sanitizedPage, sanitizedSize, sanitizedSort });
   const { data: ideas = [], isLoading } = useQuery({
-    queryKey: ["ideas", { page, size, sort }],
+    queryKey: ["ideas", { sanitizedPage, sanitizedSize, sanitizedSort }],
     queryFn: async () => {
-      const res = await fetchIdeas(page, size, sort);
+      const res = await fetchIdeas(
+        sanitizedPage.toString(),
+        sanitizedSize,
+        sanitizedSort
+      );
       console.log(res.data);
       return res;
     },
@@ -32,9 +41,9 @@ export default function IdeasPage() {
           to: ideas?.meta?.to || "10",
           total: ideas?.meta?.total || "28",
         }}
-        page={page}
-        size={size}
-        sort={sort}
+        page={sanitizedPage}
+        size={sanitizedSize}
+        sort={sanitizedSort}
         isLoading={isLoading}
         updateQuery={updateQuery}
       ></ListPost>

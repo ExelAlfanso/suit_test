@@ -7,12 +7,15 @@ export async function fetchIdeas(
 ) {
   const res = await api.get("/ideas", {
     params: {
-      "page[number]": page,
-      "page[size]": size,
+      pageNumber: page,
+      pageSize: size,
       sort,
       "append[]": ["small_image", "medium_image"],
     },
   });
 
-  return res.data;
+  // Unwrap Next.js API envelope to return upstream payload { data, meta }
+  return res.data.data;
 }
+
+export async function fetchIdeaBySlug(slug: string) {}

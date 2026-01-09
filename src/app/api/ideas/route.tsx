@@ -1,17 +1,26 @@
-import api from "@/src/lib/axios";
+import suitApi from "@/src/lib/axios-server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const pageNumber = searchParams.get("page[number]") ?? "1";
-    const pageSize = searchParams.get("page[size]") ?? "10";
+
+    const pageNumber = searchParams.get("pageNumber") ?? "1";
+    const pageSize = searchParams.get("pageSize") ?? "10";
     const sort = searchParams.get("sort") ?? "-published_at";
-    const response = await api.get("/ideas", {
+
+    const sanitizedPage = Math.max(Number(pageNumber), 1); // minimal page 1
+    const sanitizedSize = Math.min(Math.max(Number(pageSize), 10), 50);
+
+    const sanitizedSort =
+      sort === "published_at" ? "published_at" : "-published_at";
+    console.log("paginations", { sanitizedPage, sanitizedSize, sanitizedSort });
+
+    const response = await suitApi.get("/ideas", {
       params: {
-        "page[number]": pageNumber,
-        "page[size]": pageSize,
-        sort,
+        "page[number]": sanitizedPage,
+        "page[size]": sanitizedSize,
+        sort: sanitizedSort,
         "append[]": ["small_image", "medium_image"],
       },
     });
