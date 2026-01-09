@@ -1,5 +1,6 @@
-import IdeasPage from "./ideas/page";
+"use client";
+import HomePage from "./about/page";
 
 export default function Home() {
-  return <IdeasPage></IdeasPage>;
+  return <HomePage />;
 }

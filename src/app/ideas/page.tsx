@@ -17,14 +17,13 @@ export default function IdeasPage() {
     queryKey: ["ideas", { page, size, sort }],
     queryFn: async () => {
       const res = await fetchIdeas(page, size, sort);
-      console.log(res.meta);
+      console.log(res.data);
       return res;
     },
   });
   const updateQuery = useUpdateQuery();
   return (
     <div className="min-h-screen text-white">
-      <Header></Header>
       <Banner></Banner>
       <ListPost
         ideas={ideas?.data || []}

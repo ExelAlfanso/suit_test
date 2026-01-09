@@ -10,7 +10,9 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
     <div className="relative overflow-hidden bg-white rounded-lg shadow-md">
       <div className="w-full relative aspect-4/3">
         <Image
-          src={transformImageUrl(idea.medium_image?.[0]?.url)}
+          src={transformImageUrl(
+            idea.medium_image?.[0]?.url || "/images/banner1.jpg"
+          )}
           alt={idea.title}
           loading="lazy"
           fill

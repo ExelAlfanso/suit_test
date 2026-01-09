@@ -52,7 +52,9 @@ export default function ListPost({
       </div>
       <div className="grid grid-cols-1 gap-6 px-4 pb-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {ideas &&
-          ideas.map((idea: any) => <IdeaCard key={idea.id} idea={idea} />)}
+          ideas.map((idea: any) => {
+            return <IdeaCard key={idea.id} idea={idea} />;
+          })}
       </div>
       <Pagination
         currentPage={Number(page)}
