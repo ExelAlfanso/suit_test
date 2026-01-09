@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
 
     const sanitizedSort =
       sort === "published_at" ? "published_at" : "-published_at";
-    console.log("paginations", { sanitizedPage, sanitizedSize, sanitizedSort });
 
     const response = await suitApi.get("/ideas", {
       params: {

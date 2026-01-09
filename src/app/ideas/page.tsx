@@ -13,7 +13,7 @@ export default function IdeasPage() {
   const size = parseInt(searchParams.get("size") || "10");
   const sort = searchParams.get("sort") || "published_at";
 
-  const sanitizedPage = Math.min(Math.max(Number(page), 1), 1);
+  const sanitizedPage = Math.max(Number(page), 1);
   const sanitizedSize = Math.min(Math.max(Number(size), 10), 50);
   const sanitizedSort =
     sort === "published_at" ? "published_at" : "-published_at";
@@ -26,7 +26,6 @@ export default function IdeasPage() {
         sanitizedSize,
         sanitizedSort
       );
-      console.log(res.data);
       return res;
     },
   });
