@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { formatDate } from "../utils/DateFormatter";
 import { transformImageUrl } from "../utils/TransformImageUrl";
+import Image from "next/image";
 interface IdeaCardProps {
-  idea: any;
+  idea?: any;
+  isLoading?: boolean;
 }
 
 export default function IdeaCard({ idea }: IdeaCardProps) {
@@ -18,6 +19,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
+          priority={false}
         />
       </div>
       <div className="p-4">

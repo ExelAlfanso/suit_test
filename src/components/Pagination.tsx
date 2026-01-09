@@ -1,16 +1,19 @@
 import { useState } from "react";
 import PaginationButton from "./buttons/PaginationButton";
+import Loading from "./Loading";
 
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  isLoading?: boolean;
 };
 
 export default function Pagination({
   currentPage,
   totalPages,
   onPageChange,
+  isLoading = false,
 }: PaginationProps) {
   if (totalPages <= 1) return null;
 
@@ -38,16 +41,16 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 text-black  bg-white">
+    <div className="flex items-center justify-center gap-2 text-black bg-white">
       <PaginationButton
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || isLoading}
         onClick={() => onPageChange(1)}
       >
         {"<<"}
       </PaginationButton>
 
       <PaginationButton
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || isLoading}
         onClick={() => onPageChange(currentPage - 1)}
       >
         {"<"}
@@ -60,8 +63,9 @@ export default function Pagination({
             key={index}
             className={page === currentPage ? "font-bold underline" : ""}
             onClick={() => {
-              console.log("page", page);
-              onPageChange(page);
+              if (!isLoading) {
+                onPageChange(page);
+              }
             }}
           >
             {page}
@@ -70,13 +74,13 @@ export default function Pagination({
       )}
 
       <PaginationButton
-        disabled={currentPage === totalPages}
+        disabled={currentPage === totalPages || isLoading}
         onClick={() => onPageChange(currentPage + 1)}
       >
         {">"}
       </PaginationButton>
       <PaginationButton
-        disabled={currentPage === totalPages}
+        disabled={currentPage === totalPages || isLoading}
         onClick={() => onPageChange(totalPages)}
       >
         {">>"}

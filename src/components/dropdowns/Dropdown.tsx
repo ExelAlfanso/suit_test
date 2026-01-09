@@ -38,7 +38,7 @@ export default function Dropdown({
 
   return (
     <div className="flex items-center gap-2">
-      {label && <span className="text-sm text-gray-500 w-50">{label}</span>}
+      {label && <span className="text-sm text-gray-500 w-30">{label}</span>}
 
       <div ref={ref} className="relative min-w-40">
         <button
